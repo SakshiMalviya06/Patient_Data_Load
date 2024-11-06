@@ -1,0 +1,33 @@
+------------------ Below create table query is for the table where the data is being loaded from the csv
+
+CREATE TABLE [testing] (
+    [H] varchar(500),
+    [Customer_Name] varchar(500),
+    [Customer_Id] varchar(500),
+    [Open_Date] varchar(500),
+    [Last_Consulted_Date] varchar(500),
+    [Vaccination_Id] varchar(500),
+    [Dr_Name] varchar(500),
+    [State] varchar(500),
+    [Country] varchar(500),
+    [DOB] varchar(500),
+    [Is_Active] varchar(500)
+)
+
+------------------ Below create table query is for the staging table where the data is being transformed and loaded
+
+drop table Customer_Data_Stg
+CREATE TABLE Customer_Data_Stg ( 
+    Name VARCHAR(255) NOT NULL,
+    Cust_I VARCHAR(18) NOT NULL,
+    DOB DATE NOT NULL, 
+    Age AS (DATEDIFF(YEAR, DOB, GETDATE())), 
+    Open_Dt DATE NOT NULL,
+    Consul_Dt DATE NULL,
+    Days_Since_Last_Consulted AS (DATEDIFF(DAY, Consul_Dt, GETDATE())), 
+    VAC_ID CHAR(5) NULL,
+    DR_Name VARCHAR(255) NULL,
+    State CHAR(5) NULL,
+    Country CHAR(5) NULL,
+    FLAG CHAR(1) NULL
+);
